@@ -1,0 +1,156 @@
+@import './global.less';
+
+/*css重置*/
+@charset "utf-8";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Microsoft Yahei", "微软雅黑", Arial, "宋体";
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-touch-callout: none;
+    /*系统默认菜单被禁用*/
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -khtml-user-select: none;
+    /*早期浏览器*/
+    -moz-user-select: none;
+    /*火狐*/
+    -ms-user-select: none;
+    /*IE10*/
+    user-select: none;
+}
+*:focus {
+    outline: none;
+}
+*::-webkit-scrollbar {
+    display: none;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+
+i,
+em {
+    font-style: normal;
+}
+
+li {
+    list-style: none;
+}
+img{
+    display: block;
+}
+a {
+    text-decoration: none;
+    color: #666;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+
+input,
+button {
+    cursor: pointer;
+    -webkit-appearance: none;
+    border: 0;
+    background: none;
+    font-family: PingFang-SC-Regular;
+}
+
+input,
+textarea {
+    -webkit-user-select: auto;
+    /*webkit浏览器*/
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+}
+
+@font-face {
+    font-family: 'iconfont';
+    src: url('../font/iconfont.eot');
+    src: url('../font/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../font/iconfont.woff') format('woff'),
+    url('../font/iconfont.ttf') format('truetype'),
+    url('../font/iconfont.svg#iconfont') format('svg');
+}
+body,
+html,#app{
+    width:100%;
+    font: 14px/1.5 "Microsoft Yahei", "微软雅黑", Arial, "宋体";
+    background:#EEEEEE;
+}
+
+/* 懒加载图片样式 */
+.image_wrap {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+    img{
+        width:100%;
+    }
+}
+.scope{
+    margin:0 auto;
+}
+@media screen and (min-width:1400px){
+    .scope{
+        width:1340px;
+    }
+}
+@media screen and (max-width:1400px){
+    .scope{
+        width:1200px;
+    }
+}
+
+.icon {
+    font-family: 'iconfont';
+    font-size: 28px;
+    position: relative;
+    color: white;
+}
+
+
+/*图标字体*/
+
+
+/* 首页 */
+.icon_home::before {
+    content: '\e622';
+}
+
+/* 项目 */
+.icon_project::before {
+    content: '\e600';
+}
+
+/* 留言 */
+.icon_leave::before {
+    content: '\e606';
+}
+
+/*关于*/
+.icon_about::before {
+    content: '\e7ff';
+}
+
+
+
+
