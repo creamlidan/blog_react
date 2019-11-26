@@ -57,9 +57,32 @@ export const article = {
       }).catch(function (error) {
           return requestHandle(error.response);
       });
+  },
+  filtrateList(data){
+    let url= "/api/article/filtrateList";
+    return axios.post(url,data).then(res=>{
+        return requestHandle(res);
+    }).catch(function (error) {
+        return requestHandle(error.response);
+    });
+  }
+  
+}
+export const project ={
+  projectList(keyword,project_status){
+    let url= "/api/project/projectList";
+    return axios.get(url,{
+      params:{
+        keyword,
+        project_status
+      }
+    }).then(res=>{
+        return requestHandle(res);
+    }).catch(function (error) {
+        return requestHandle(error.response);
+    });
   }
 }
-
 //处理接收到的数据参数
 const requestHandle = res => {
   let $data = res.data

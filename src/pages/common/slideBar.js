@@ -27,12 +27,16 @@ export default class SlideBar extends Component{
 	}
 	_renderSlideItem(item,type){
 		if(item.article_nums >0){
-			return (<span key={item._id}>{item[type]} ({item.article_nums})</span>)
+			return (<span key={item._id} onClick={()=>this.handleClick(type,item._id,item[type])}>{item[type]} ({item.article_nums})</span>)
 		}else{
 			return null;
 		}
 		
 	}
+	handleClick = (type,_id,value)=> {
+        this.props.onChangeName(type,_id,value);
+    }
+
 	render(){
 		const { classifyList,labelList} = this.state;
 		return(

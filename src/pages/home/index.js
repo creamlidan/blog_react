@@ -4,6 +4,9 @@ import { article,classify,label } from '@c/api'
 import { List,Button } from 'antd';
 import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
+//监听总线通知
+import EventTypes from '../../public/EventTypes';
+import EventBus from 'react-native-event-bus'
 export default class Home extends Component{
 	constructor(props){
 		super(props);
@@ -15,7 +18,8 @@ export default class Home extends Component{
 			total:null,
 			showArticleList:[],
 			classifyList:[],
-			labelList:[]
+			labelList:[],
+			title:'最近动态'
 		}
 	}
 	componentDidMount(){
@@ -29,6 +33,32 @@ export default class Home extends Component{
 		label.labelList().then(res=>{
 			this.setState({
 				labelList:res.data.labelList
+			})
+		})
+		EventBus.getInstance().addListener(EventTypes.classify_select,this.classifySelectListener  = data =>{
+			this.setState({
+				title:"` "+data.value+"` 分类下的文章"
+			})
+			this.filtrateList(data)
+		})
+		EventBus.getInstance().addListener(EventTypes.label_select,this.labelSelectListener  = data =>{
+			this.setState({
+				title:"` "+data.value+"` 标签下的文章"
+			})
+			this.filtrateList(data)
+		})
+	}
+	componentWillUnmount(){
+   		EventBus.getInstance().removeListener(this.classifySelectListener);
+    	EventBus.getInstance().removeListener(this.labelSelectListener);
+  	}
+	filtrateList(data){
+		const { pageNum,pageSize} = this.state;
+		article.filtrateList(data).then(res=>{
+			this.setState({
+				articleList:res.data.articleList,
+				total:res.data.total,
+				showArticleList:res.data.articleList.slice(0,pageNum*pageSize)
 			})
 		})
 	}
@@ -72,7 +102,7 @@ export default class Home extends Component{
 			<div className="article_item">
 				<div className="article_title">
 					{this._findId(item.classify,'classify')}
-					<span>{item.title}</span>
+					<span>{item.title}{this.context.currentSearchType}</span>
 				</div>
 				<div className="desc">
 					{item.author}发表于{moment(item.createTime).format('YYYY-MM-DD')},    标签：{this._findId(item.tag,'label')}
@@ -86,7 +116,7 @@ export default class Home extends Component{
 		)
 	}
 	render(){
-		const { showArticleList,total,pageNum,pageSize } = this.state;
+		const { showArticleList,total,pageNum,pageSize,title } = this.state;
 		const loadMore =
 	      pageNum*pageSize < total? (
 	        <div
@@ -103,9 +133,9 @@ export default class Home extends Component{
 		return(
 			<div className="home_section">
 				<h2>
-					<span>最近动态</span>
+					<span>{title}</span>
 				</h2>
-				<div className="articleList">
+				<div className="article_list">
 					<List
 					    dataSource={showArticleList}
 					    loading={this.state.loading}

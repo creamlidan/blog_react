@@ -1,0 +1,56 @@
+@import '../../static/css/global.less';
+.project_item{
+	border-bottom: 1px solid #eee;
+    padding: 12px 0;
+    display:flex;
+    .project_labelIcon{
+    	margin-right:4px;
+    }
+    >div:last-child{
+    	flex:1;
+    }
+	.project_name{
+		font-size:18px;
+	}
+	.project_desc,.project_time{
+		font-size:14px;
+		color:@theme_66;
+	}
+	.icon{
+		color:@theme;
+		font-size:18px;
+		font-weight:bold;
+		margin-right:4px;
+	}
+	.project_desc{
+		margin-top:12px;
+		>div:first-child{
+			display:flex;
+			align-items:center;
+			>div:first-child{
+				flex:1;
+			}
+		}
+		i{
+			font-size:20px;
+		}
+	}
+	.project_status{
+		font-size:12px;
+		margin-left:4px;
+		&.online{
+			color:@theme;
+		}
+	}
+	.desc_label{
+		font-weight:bold;
+	}
+	.label_item{
+		border:1px solid @theme;
+		color:@theme;
+	}
+}
+.ad_img{
+	width:100%;
+	margin-bottom:12px;
+}

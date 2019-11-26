@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import SlideBar from '../common/slideBar'
 const { Header, Content } = Layout;
 import './index.less'
+import EventTypes from '../../public/EventTypes';
+import EventBus from 'react-native-event-bus'
 export default class Frame extends Component{
 	static contextTypes = {
 	    router: PropTypes.shape({
@@ -42,7 +44,9 @@ export default class Frame extends Component{
 			userInfo:{
 				userImg:"/src/static/images/lidan.jpg",
 				userMotto:"只要还有明天,今天就是起跑线"
-			}
+			},
+			currentSearchType:null,
+			currentSearchType_value:null
 		}
 	}
 	componentDidMount() {
@@ -66,8 +70,23 @@ export default class Frame extends Component{
 			</li>
 		)
 	}
+	onChangeName =(type,_id,value)=>{
+		if(type == 'classify_name'){
+			EventBus.getInstance().fireEvent(EventTypes.classify_select,{
+				$type:'classify',
+				_id,
+				value
+			});
+		}else if(type == 'label_name'){
+			EventBus.getInstance().fireEvent(EventTypes.label_select,{
+				$type:'tag',
+				_id,
+				value
+			});
+		}
+	}
 	render(){
-		const { navList,userInfo} = this.state
+		const { navList,userInfo} = this.state;
 		return(
 			<Layout className="page">
 				<Header className="header">
@@ -105,9 +124,9 @@ export default class Frame extends Component{
 			            flex:1
 			          }}
 			        >
-			        {this.props.children}
+			        	{this.props.children}
 			        </Content>
-			        <div class="slide_wrap"><SlideBar/></div>
+			        <div className="slide_wrap"><SlideBar onChangeName={this.onChangeName}/></div>
 				</Layout>
 			</Layout>
 		)
